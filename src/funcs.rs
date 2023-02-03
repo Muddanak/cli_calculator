@@ -13,6 +13,7 @@ pub(crate) mod calculations {
     impl std::error::Error for ComputationError {}
 
     pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
+
         Ok(x.expect("What the crap") + y.expect("Wholly crap"))
     }
 

@@ -18,7 +18,7 @@ fn main() {
             let operand = get_operand(&tmp[0], &tmp[1], &tmp[2]);
             tmp.retain(|x| *x != operand.to_string());
             tmp.insert(0, operand.to_string());
-            println!("sorted array is: {:?}", tmp);
+            println!("resorted array is: {tmp:?}");
 
             match operand {
                 '+' => {
@@ -78,8 +78,8 @@ fn main() {
 
     if !check_for_floats(&args[1], &args[2], &args[3]) {
         let sum = add(
-            Some(args[1].parse().unwrap()),
-            Some(args[3].parse().unwrap()),
+            Some(args[1].parse().unwrap_or(0.0)),
+            Some(args[3].parse().unwrap_or(0.0)),
         );
         if sum.is_ok() {
             println!("{}", sum.expect("Something happened during the add"));
