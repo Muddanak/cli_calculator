@@ -13,7 +13,6 @@ pub(crate) mod calculations {
     impl std::error::Error for ComputationError {}
 
     pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
-
         Ok(x.expect("What the crap") + y.expect("Wholly crap"))
     }
 
@@ -44,12 +43,23 @@ pub(crate) mod calculations {
         fn check_divide() {
             assert_eq!(divide(Some(5.0), Some(2.0)).unwrap(), 2.5);
             assert_eq!(divide(Some(10.0), Some(10.0)).unwrap(), 1.0);
-            assert_eq!(divide( Some(-5.0), Some(5.0)).unwrap(), -1.0);
+            assert_eq!(divide(Some(-5.0), Some(5.0)).unwrap(), -1.0);
         }
     }
 }
 
-pub(crate) fn check_for_floats(one: &String, two: &String, three: &String) -> bool {
+pub(crate) mod transform {
+
+    pub(crate) fn shrink_vector(vec: &mut Vec<String>, num: f32) -> &mut Vec<String> {
+        for _ in 0..=2 {
+            vec.remove(0);
+        }
+        vec.insert(0, num.to_string());
+        vec
+    }
+}
+
+/*pub(crate) fn check_for_floats(one: &String, two: &String, three: &String) -> bool {
     let compound: Vec<&String> = vec![one, two, three];
 
     for test in compound {
@@ -59,7 +69,7 @@ pub(crate) fn check_for_floats(one: &String, two: &String, three: &String) -> bo
         }
     }
     false
-}
+}*/
 
 pub(crate) fn get_operand(one: &String, two: &String, three: &String) -> char {
     let compound: Vec<&String> = vec![one, two, three];
