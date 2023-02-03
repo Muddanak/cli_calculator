@@ -49,7 +49,6 @@ pub(crate) mod calculations {
 }
 
 pub(crate) mod transform {
-
     pub(crate) fn shrink_vector(vec: &mut Vec<String>, num: f32) -> &mut Vec<String> {
         for _ in 0..=2 {
             vec.remove(0);
@@ -59,24 +58,11 @@ pub(crate) mod transform {
     }
 }
 
-/*pub(crate) fn check_for_floats(one: &String, two: &String, three: &String) -> bool {
-    let compound: Vec<&String> = vec![one, two, three];
-
-    for test in compound {
-        let check = test.parse::<f32>();
-        if check.is_ok() && check.expect("What").fract() != 0.0 {
-            return true;
-        }
-    }
-    false
-}*/
-
 pub(crate) fn get_operand(one: &String, two: &String, three: &String) -> char {
     let compound: Vec<&String> = vec![one, two, three];
-
     for test in compound {
         let check = test.parse::<char>();
-        if check.is_ok() {
+        if let Ok(..) = check {
             let char_check = check.unwrap();
 
             match char_check {
