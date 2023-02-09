@@ -12,6 +12,16 @@ pub(crate) mod calculations {
 
     impl std::error::Error for ComputationError {}
 
+    /*pub(crate) fn g_add<T: std::ops::Add<Output = T>>(x: T, y: T) -> Result<f32, ComputationError> {
+        Ok(x as f32 + f32::from(y))
+    }*/
+
+    pub(crate) fn g_add<T>(x : T, y: T) -> Result<T, ComputationError> where
+        T: std::ops::Add<Output = T> + Copy {
+            Ok(x + y)
+        }
+
+
     pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
         Ok(x.expect("What the crap") + y.expect("Wholly crap"))
     }
