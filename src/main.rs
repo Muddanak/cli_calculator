@@ -44,7 +44,7 @@ fn main() {
                     '/' => {
                         outcome = g_divide(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
-                            Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
+                            Some(tmp[2].parse::<f32>().unwrap_or(1.0)),
                         );
                     }
                     'N' => println!("Somehow we got an invalid operand!?"),

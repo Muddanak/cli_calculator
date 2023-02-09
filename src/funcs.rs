@@ -1,7 +1,7 @@
 pub(crate) mod calculations {
     use std::fmt::{Display, Formatter};
 
-    #[derive(Debug)]
+    #[derive(Debug, PartialEq)]
     pub(crate) struct ComputationError;
 
     impl Display for ComputationError {
@@ -9,35 +9,74 @@ pub(crate) mod calculations {
             write!(f, "There was a computation error")
         }
     }
-
     impl std::error::Error for ComputationError {}
+
 
     pub(crate) fn g_add<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
         T: std::ops::Add<Output = T> + Copy,
     {
-        Ok(x.unwrap() + y.unwrap())
+        if let Some(first) = x {
+            if let Some(second) = y {
+                Ok(first + second)
+            }
+            else {
+                Err(ComputationError)
+            }
+        } else {
+            Err(ComputationError)
+        }
+        //Ok(x.unwrap() + y.unwrap())
     }
 
     pub(crate) fn g_subtract<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
         T: std::ops::Sub<Output = T> + Copy,
     {
-        Ok(x.unwrap() - y.unwrap())
+        if let Some(first) = x {
+            if let Some(second) = y {
+                Ok(first - second)
+            }
+            else {
+                Err(ComputationError)
+            }
+        } else {
+            Err(ComputationError)
+        }
     }
 
     pub(crate) fn g_multiply<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
         T: std::ops::Mul<Output = T> + Copy,
     {
-        Ok(x.unwrap() * y.unwrap())
+        if let Some(first) = x {
+            if let Some(second) = y {
+                Ok(first * second)
+            }
+            else {
+                Err(ComputationError)
+            }
+        } else {
+            Err(ComputationError)
+        }
+        //Ok(x.unwrap() * y.unwrap())
     }
 
     pub(crate) fn g_divide<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
         T: std::ops::Div<Output = T> + Copy,
     {
-        Ok(x.unwrap() / y.unwrap())
+        if let Some(first) = x {
+            if let Some(second) = y {
+                Ok(first / second)
+            }
+            else {
+                Err(ComputationError)
+            }
+        } else {
+            Err(ComputationError)
+        }
+        /*Ok(x.unwrap() / y.unwrap())*/
     }
 
     /*pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
@@ -72,6 +111,7 @@ pub(crate) mod calculations {
             assert_eq!(g_divide(Some(5.0), Some(2.0)).unwrap(), 2.5);
             assert_eq!(g_divide(Some(10.0), Some(10.0)).unwrap(), 1.0);
             assert_eq!(g_divide(Some(-5.0), Some(5.0)).unwrap(), -1.0);
+            assert_eq!(g_divide(Some(5.0), Some(0.0)), Err(ComputationError));
         }
     }
 }
