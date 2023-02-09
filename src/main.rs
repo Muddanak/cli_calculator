@@ -30,19 +30,19 @@ fn main() {
                         );
                     }
                     '-' => {
-                        outcome = subtract(
+                        outcome = g_subtract(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );
                     }
                     '*' => {
-                        outcome = multiply(
+                        outcome = g_multiply(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );
                     }
                     '/' => {
-                        outcome = divide(
+                        outcome = g_divide(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );

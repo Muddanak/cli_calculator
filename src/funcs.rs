@@ -12,17 +12,35 @@ pub(crate) mod calculations {
 
     impl std::error::Error for ComputationError {}
 
-    /*pub(crate) fn g_add<T: std::ops::Add<Output = T>>(x: T, y: T) -> Result<f32, ComputationError> {
-        Ok(x as f32 + f32::from(y))
-    }*/
+    pub(crate) fn g_add<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
+    where
+        T: std::ops::Add<Output = T> + Copy,
+    {
+        Ok(x.unwrap() + y.unwrap())
+    }
 
-    pub(crate) fn g_add<T>(x : Option<T>, y: Option<T>) -> Result<T, ComputationError> where
-        T: std::ops::Add<Output = T> + Copy {
-            Ok(x.unwrap() + y.unwrap())
-        }
+    pub(crate) fn g_subtract<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
+    where
+        T: std::ops::Sub<Output = T> + Copy,
+    {
+        Ok(x.unwrap() - y.unwrap())
+    }
 
+    pub(crate) fn g_multiply<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
+    where
+        T: std::ops::Mul<Output = T> + Copy,
+    {
+        Ok(x.unwrap() * y.unwrap())
+    }
 
-    pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
+    pub(crate) fn g_divide<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
+    where
+        T: std::ops::Div<Output = T> + Copy,
+    {
+        Ok(x.unwrap() / y.unwrap())
+    }
+
+    /*pub(crate) fn add(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
         Ok(x.expect("What the crap") + y.expect("Wholly crap"))
     }
 
@@ -37,23 +55,23 @@ pub(crate) mod calculations {
     pub(crate) fn divide(x: Option<f32>, y: Option<f32>) -> Result<f32, ComputationError> {
         assert_ne!(y.unwrap(), 0.0);
         Ok(x.expect("What the crap") / y.expect("Wholly crap"))
-    }
+    }*/
 
     #[cfg(test)]
     mod tests {
         use super::*;
         #[test]
         fn check_int_add() {
-            assert_eq!(add(Some(5.0), Some(5.0)).unwrap(), 10.0);
-            assert_eq!(add(Some(5.0), Some(-5.0)).unwrap(), 0.0);
-            assert_eq!(add(Some(-5.0), Some(-5.0)).unwrap(), -10.0);
+            assert_eq!(g_add(Some(5.0), Some(5.0)).unwrap(), 10.0);
+            assert_eq!(g_add(Some(5.0), Some(-5.0)).unwrap(), 0.0);
+            assert_eq!(g_add(Some(-5.0), Some(-5.0)).unwrap(), -10.0);
         }
 
         #[test]
         fn check_divide() {
-            assert_eq!(divide(Some(5.0), Some(2.0)).unwrap(), 2.5);
-            assert_eq!(divide(Some(10.0), Some(10.0)).unwrap(), 1.0);
-            assert_eq!(divide(Some(-5.0), Some(5.0)).unwrap(), -1.0);
+            assert_eq!(g_divide(Some(5.0), Some(2.0)).unwrap(), 2.5);
+            assert_eq!(g_divide(Some(10.0), Some(10.0)).unwrap(), 1.0);
+            assert_eq!(g_divide(Some(-5.0), Some(5.0)).unwrap(), -1.0);
         }
     }
 }
