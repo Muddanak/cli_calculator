@@ -16,9 +16,9 @@ pub(crate) mod calculations {
         Ok(x as f32 + f32::from(y))
     }*/
 
-    pub(crate) fn g_add<T>(x : T, y: T) -> Result<T, ComputationError> where
+    pub(crate) fn g_add<T>(x : Option<T>, y: Option<T>) -> Result<T, ComputationError> where
         T: std::ops::Add<Output = T> + Copy {
-            Ok(x + y)
+            Ok(x.unwrap() + y.unwrap())
         }
 
 

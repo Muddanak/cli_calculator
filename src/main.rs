@@ -25,8 +25,8 @@ fn main() {
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );*/
                         outcome = g_add(
-                            tmp[1].parse::<f32>().unwrap_or(0.0),
-                            tmp[2].parse::<f32>().unwrap_or(0.0),
+                            Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
+                            Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );
                     }
                     '-' => {
