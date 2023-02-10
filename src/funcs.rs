@@ -1,12 +1,21 @@
 pub(crate) mod calculations {
     use std::fmt::{Display, Formatter};
+    use std::ops::*;
+    use num_traits::Zero;
 
     #[derive(Debug, PartialEq)]
-    pub(crate) struct ComputationError;
+    pub(crate) enum ComputationError
+    {
+        DivideByZero,
+        IncorrectValue,
+    }
 
     impl Display for ComputationError {
         fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-            write!(f, "There was a computation error")
+            match self {
+                ComputationError::DivideByZero => write!(f, "Denominator was 0, universe breakage averted"),
+                ComputationError::IncorrectValue => write!(f, "Unexpected value occurred")
+            }
         }
     }
     impl std::error::Error for ComputationError {}
@@ -14,67 +23,70 @@ pub(crate) mod calculations {
 
     pub(crate) fn g_add<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
-        T: std::ops::Add<Output = T> + Copy,
+        T: Add<Output = T> + Copy,
     {
         if let Some(first) = x {
             if let Some(second) = y {
                 Ok(first + second)
             }
             else {
-                Err(ComputationError)
+                Err(ComputationError::IncorrectValue)
             }
         } else {
-            Err(ComputationError)
+            Err(ComputationError::IncorrectValue)
         }
         //Ok(x.unwrap() + y.unwrap())
     }
 
     pub(crate) fn g_subtract<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
-        T: std::ops::Sub<Output = T> + Copy,
+        T: Sub<Output = T> + Copy,
     {
         if let Some(first) = x {
             if let Some(second) = y {
                 Ok(first - second)
             }
             else {
-                Err(ComputationError)
+                Err(ComputationError::IncorrectValue)
             }
         } else {
-            Err(ComputationError)
+            Err(ComputationError::IncorrectValue)
         }
     }
 
     pub(crate) fn g_multiply<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
-        T: std::ops::Mul<Output = T> + Copy,
+        T: Mul<Output = T> + Copy,
     {
         if let Some(first) = x {
             if let Some(second) = y {
                 Ok(first * second)
             }
             else {
-                Err(ComputationError)
+                Err(ComputationError::IncorrectValue)
             }
         } else {
-            Err(ComputationError)
+            Err(ComputationError::IncorrectValue)
         }
         //Ok(x.unwrap() * y.unwrap())
     }
 
     pub(crate) fn g_divide<T>(x: Option<T>, y: Option<T>) -> Result<T, ComputationError>
     where
-        T: std::ops::Div<Output = T> + Copy,
+        T: Div<Output = T> + Copy + PartialEq + Zero,
     {
         if let Some(first) = x {
             if let Some(second) = y {
+                if second.is_zero() {
+                    return Err(ComputationError::DivideByZero)
+                }
                 Ok(first / second)
             }
             else {
-                Err(ComputationError)
+                Err(ComputationError::IncorrectValue)
             }
         } else {
-            Err(ComputationError)
+            Err(ComputationError::IncorrectValue)
         }
         /*Ok(x.unwrap() / y.unwrap())*/
     }
@@ -111,7 +123,7 @@ pub(crate) mod calculations {
             assert_eq!(g_divide(Some(5.0), Some(2.0)).unwrap(), 2.5);
             assert_eq!(g_divide(Some(10.0), Some(10.0)).unwrap(), 1.0);
             assert_eq!(g_divide(Some(-5.0), Some(5.0)).unwrap(), -1.0);
-            assert_eq!(g_divide(Some(5.0), Some(0.0)), Err(ComputationError));
+            assert_eq!(g_divide(Some(5.0), Some(0.0)), Err(ComputationError::DivideByZero));
         }
     }
 }

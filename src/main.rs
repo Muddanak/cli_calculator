@@ -11,7 +11,7 @@ fn main() {
 
     {
         let mut outcome: Result<f32, ComputationError> = Ok(0.0);
-        for _ in 0..2 {
+        while args2.len() != 1 {
             if args2.len() >= 3 {
                 let mut tmp: Vec<String> = Vec::from(&args2[0..3]);
                 let operand = get_operand(&tmp[0], &tmp[1], &tmp[2]);
@@ -50,11 +50,21 @@ fn main() {
                     'N' => println!("Somehow we got an invalid operand!?"),
                     _ => println!("Not yet implemented"),
                 }
-                if args2.len() >= 4 {
-                    shrink_vector(&mut args2, *outcome.as_ref().unwrap());
+                if args2.len() > 2 {
+                    if let Ok(result) = outcome.as_ref() {
+                        //shrink_vector(&mut args2, *outcome.as_ref().unwrap());
+                        shrink_vector(&mut args2, *result);
+                        dbg!(&mut args2);
+                    }
+                } else {
+                    println!("{}", args2.len())
                 }
             }
         }
-        println!("The result of the computation was {0}", outcome.unwrap())
+        if let Ok(result) = outcome {
+            println!("The result of the computation was {result}")
+        } else if let Err(result) = outcome {
+            println!("{result}")
+        }
     }
 }
