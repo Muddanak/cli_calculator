@@ -121,8 +121,8 @@ pub(crate) mod transform {
 pub(crate) fn get_operand(one: &String, two: &String, three: &String) -> char {
     let compound: Vec<&String> = vec![one, two, three];
     for test in compound {
-        let check = test.parse::<char>();
-        if let Ok(char_check) = check {
+        //let check = test.parse::<char>();
+        if let Ok(char_check) = test.parse() {
             match char_check {
                 '+' | '-' | '/' | '*' => return char_check,
                 _ => continue,

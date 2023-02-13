@@ -12,7 +12,7 @@ fn main() {
     if args2.len() < 3 {
         println!("Expected at least 3 starting inputs (ex: a + b)");
 
-        return
+        return;
     }
 
     {
@@ -30,28 +30,48 @@ fn main() {
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
                         );*/
-                        outcome = g_add(
+                        /*outcome = g_add(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
-                        );
+                        );*/
+                        if let Ok(first) = tmp[1].parse::<f32>() {
+                            if let Ok(second) = tmp[2].parse::<f32>() {
+                                outcome = g_add(Some(first), Some(second));
+                            }
+                        }
                     }
                     '-' => {
-                        outcome = g_subtract(
+                        /*outcome = g_subtract(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
-                        );
+                        );*/
+                        if let Ok(first) = tmp[1].parse::<f32>() {
+                            if let Ok(second) = tmp[2].parse::<f32>() {
+                                outcome = g_subtract(Some(first), Some(second));
+                            }
+                        }
                     }
                     '*' => {
-                        outcome = g_multiply(
+                        /*outcome = g_multiply(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(0.0)),
-                        );
+                        );*/
+                        if let Ok(first) = tmp[1].parse::<f32>() {
+                            if let Ok(second) = tmp[2].parse::<f32>() {
+                                outcome = g_multiply(Some(first), Some(second));
+                            }
+                        }
                     }
                     '/' => {
-                        outcome = g_divide(
+                        /*outcome = g_divide(
                             Some(tmp[1].parse::<f32>().unwrap_or(0.0)),
                             Some(tmp[2].parse::<f32>().unwrap_or(1.0)),
-                        );
+                        );*/
+                        if let Ok(first) = tmp[1].parse::<f32>() {
+                            if let Ok(second) = tmp[2].parse::<f32>() {
+                                outcome = g_divide(Some(first), Some(second));
+                            }
+                        }
                     }
                     'N' => println!("Somehow we got an invalid operand!?"),
                     _ => println!("Not yet implemented"),
