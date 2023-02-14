@@ -1,4 +1,4 @@
-use std::env;
+use std::{env};
 
 mod funcs;
 use crate::funcs::transform::shrink_vector;
@@ -6,8 +6,8 @@ use funcs::calculations::*;
 use funcs::*;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let mut args2: Vec<String> = Vec::from(&args[1..]);
+    let args: Box<Vec<String>> = Box::new(env::args().collect());
+    let mut args2: Box<Vec<String>> = Box::new(Vec::from(&args[1..]));
     //dbg!(args2.len());
     if args2.len() < 3 {
         println!("Expected at least 3 starting inputs (ex: a + b)");
@@ -19,7 +19,7 @@ fn main() {
         let mut outcome: Result<f32, ComputationError> = Ok(0.0);
         while args2.len() > 1 {
             if args2.len() >= 3 {
-                let mut tmp: Vec<String> = Vec::from(&args2[0..3]);
+                let mut tmp: Box<Vec<String>> = Box::new(Vec::from(&args2[0..3]));
                 let operand = get_operand(&tmp[0], &tmp[1], &tmp[2]);
                 tmp.retain(|x| *x != operand.to_string());
                 tmp.insert(0, operand.to_string());
