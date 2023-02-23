@@ -1,6 +1,8 @@
 use std::{env};
 
+mod argparser;
 mod funcs;
+
 use crate::funcs::transform::shrink_vector;
 use funcs::calculations::*;
 use funcs::*;
@@ -9,6 +11,7 @@ fn main() {
     let args: Box<Vec<String>> = Box::new(env::args().collect());
     let mut args2: Box<Vec<String>> = Box::new(Vec::from(&args[1..]));
     //dbg!(args2.len());
+    dbg!(argparser::lib::parseargs(Vec::from(&args[1..])));
     if args2.len() < 3 {
         println!("Expected at least 3 starting inputs (ex: a + b)");
 
