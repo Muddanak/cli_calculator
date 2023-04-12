@@ -1,8 +1,11 @@
 # cli_calculator
-A command line calculator in Rust as I learn the language
+A command line calculator in Rust as I learn the ins and outs of the language
+
 Rust version 2021
 
-# Ideas
+This is just an example for me to see where I started and where I go in as I progress.
+
+# Idea
 Basically make it so it can take in things like 1 + 2 + 3 + (4 * 5) and make it handle it.  I've done this before a long, long time ago in C/C++ but now I'm just trying to remember how I did it back then and translate it into Rust.
 
 # Usage
